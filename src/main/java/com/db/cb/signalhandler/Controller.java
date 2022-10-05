@@ -10,7 +10,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @RestController
 public class Controller {
 
-    private final Application application = new Application();
+    private final SignalService application = new SignalService();
 
     @GetMapping("/home/{signal}")
     protected ResponseEntity<Integer> receiveSignal(@PathVariable("signal") int signal) throws MethodArgumentTypeMismatchException {
