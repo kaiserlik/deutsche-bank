@@ -2,10 +2,7 @@ package com.db.cb.signalhandler;
 
 import akka.japi.Pair;
 import com.typesafe.config.ConfigValue;
-import scala.collection.immutable.List;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
