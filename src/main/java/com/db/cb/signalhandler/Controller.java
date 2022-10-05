@@ -1,5 +1,6 @@
 package com.db.cb.signalhandler;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,14 @@ public class Controller {
         }
     }
 
-    @GetMapping("/home/{signal}")
+    @GetMapping("/home/int/{signal}")
     protected ResponseEntity<Integer> receiveSignal(@PathVariable("signal") int signal) throws MethodArgumentTypeMismatchException {
         application.handleSignal(signal);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/home/json/{signal}")
+    protected ResponseEntity<String> receiveSignal(@PathVariable("signal") String signal) throws MethodArgumentTypeMismatchException, ParseException {
+        application.handleSignal(Utility.parseJson(signal));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
