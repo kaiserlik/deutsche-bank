@@ -31,6 +31,7 @@ class Application implements SignalHandler {
     public void handleSignal(int signal) {
         try{
             for(String name: this.methMap.get(signal)){
+                //make into switch (signal, isSetAlgoParam(name)) case (true, 1):
                 if(isSetAlgoParam(name) && signal == 1)
                     callMethod(name, 1, 60);
                 else if(isSetAlgoParam(name) && signal == 2)
@@ -109,16 +110,16 @@ class Application implements SignalHandler {
         meth.invoke(inst, p, v);
     }
 
-    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException{
-        Application app = new Application();
-//        app.callMethod(Meth.setAlgoParam.name(), 100, 200);
-        app.methMap.forEach((k,v) -> System.out.println(k + " : " + v.toString()));
-        System.out.println("-----------------");
-        app.handleSignal(1);
-        System.out.println("-----------------");
-        app.handleSignal(2);
-        System.out.println("-----------------");
-        app.handleSignal(3);
-
-    }
+//    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException{
+//        Application app = new Application();
+////        app.callMethod(Meth.setAlgoParam.name(), 100, 200);
+//        app.methMap.forEach((k,v) -> System.out.println(k + " : " + v.toString()));
+//        System.out.println("-----------------");
+//        app.handleSignal(1);
+//        System.out.println("-----------------");
+//        app.handleSignal(2);
+//        System.out.println("-----------------");
+//        app.handleSignal(3);
+//
+//    }
 }
