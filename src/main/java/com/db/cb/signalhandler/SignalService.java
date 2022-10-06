@@ -3,6 +3,7 @@ package com.db.cb.signalhandler;
 import akka.japi.Pair;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValue;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -62,13 +63,14 @@ class SignalService implements SignalHandler {
 
     private void initMethodMap(){
         Config methConf;
+        ArrayList<String> methods;
         for(int i = 0; i < conf.entrySet().size(); i++){
-            ArrayList<String> methods = new ArrayList<>();
+            methods = new ArrayList<>();
             methConf = conf.getConfig(String.valueOf(i));
-            methConf.getList("name")
-                    .forEach(
-                            m -> methods.add(Utility.unwrapConfigValue(m).trim())
-                    );
+
+            for(ConfigValue cv: methConf.getList("name")){
+                methods.add(Utility.unwrapConfigValue(cv).trim());
+            }
             this.methMap.put(i, methods);
         }
     }

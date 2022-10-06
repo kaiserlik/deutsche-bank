@@ -30,7 +30,6 @@ public class ControllerTest {
         String url = "http://localhost:8080/home/json/?signal={signal}";
         String signal = "{\"signal\":\"4\"}";
         ResponseEntity<String> result = rest.getForEntity(url, String.class, signal);
-        System.out.println("body: " + result.getBody());
         Assert.assertEquals(200, result.getStatusCodeValue());
     }
 }
