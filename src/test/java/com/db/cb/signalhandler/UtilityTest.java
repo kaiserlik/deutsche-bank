@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -37,9 +38,11 @@ public class UtilityTest {
         Set<String> l3 = new HashSet<>();
         l3.add("reverse"); l3.add("setAlgoParam(1|80)"); l3.add("submitToMarket");
         Set<String> l4 = new HashSet<>();
-        l4.add("setUp"); l4.add("submitToMarket");
+        l4.add("setAlgoParam(1|90)"); l4.add("setAlgoParam(2|15)"); l4.add("performCalc"); l4.add("submitToMarket");
+        Set<String> l5 = new HashSet<>();
+        l5.add("setUp"); l5.add("submitToMarket");
         ArrayList<Set> arr = new ArrayList<>();
-        arr.add(l1); arr.add(l2); arr.add(l3); arr.add(l4);
+        arr.add(l1); arr.add(l2); arr.add(l3); arr.add(l4); arr.add(l5);
 
         //check for null values
         for (int i = 0; i < conf.entrySet().size(); i++) {
@@ -49,11 +52,18 @@ public class UtilityTest {
                             m -> Assert.assertNotNull(m.render())
                     );
         }
-//        for (int i = 0; i < conf.entrySet().size(); i++) {
-//            Config methConf = conf.getConfig(String.valueOf(i));
-//            //if set is unchanged hence no more or less, then false
-//            Assert.assertFalse(arr.get(i).retainAll(methConf.getList("name")));
-//        }
+        ArrayList<String> list;
+        Config methConf;
+        for (int i = 0; i < conf.entrySet().size(); i++) {
+            list = new ArrayList<>();
+            methConf = conf.getConfig(String.valueOf(i));
+
+            for(ConfigValue o : methConf.getList("name")){
+                list.add(Utility.unwrapConfigValue(o));
+            }
+            //if set is unchanged hence no more or less, then false
+            Assert.assertFalse(arr.get(i).retainAll(list));
+        }
     }
 
     @Test
