@@ -67,7 +67,7 @@ class SignalService implements SignalHandler {
             methConf = conf.getConfig(String.valueOf(i));
             methConf.getList("name")
                     .forEach(
-                            m -> methods.add(Utility.unwrapConfigValue(m))
+                            m -> methods.add(Utility.unwrapConfigValue(m).trim())
                     );
             this.methMap.put(i, methods);
         }

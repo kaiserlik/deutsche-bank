@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
@@ -26,8 +27,8 @@ public class Controller {
         application.handleSignal(signal);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @GetMapping("/home/json/{signal}")
-    protected ResponseEntity<String> receiveSignal(@PathVariable("signal") String signal) throws MethodArgumentTypeMismatchException, ParseException {
+    @GetMapping("/home/json")
+    protected ResponseEntity<String> receiveSignal(@RequestParam(value="signal") String signal) throws MethodArgumentTypeMismatchException, ParseException {
         application.handleSignal(Utility.parseJson(signal));
         return new ResponseEntity<>(HttpStatus.OK);
     }
