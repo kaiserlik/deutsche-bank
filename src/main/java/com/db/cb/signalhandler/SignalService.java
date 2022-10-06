@@ -41,6 +41,7 @@ class SignalService implements SignalHandler {
                 else callMethod(name);
             }
         }catch(NullPointerException ex){
+            //call default command
             List<String> methods = this.methMap.get(0);
             Arrays.stream(methods.toArray()).forEach(m -> {
                 try {
